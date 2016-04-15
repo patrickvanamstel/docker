@@ -1,4 +1,4 @@
-FROM patrickvanamstel:ubuntu-wily-python
+FROM patrickvanamstel/ubuntu-wily-python:v1rc1
 MAINTAINER Patrick van Amstel <patrickvanamstel@gmail.com>
 
 RUN apt-get update && apt-get upgrade
