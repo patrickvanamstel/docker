@@ -1,4 +1,4 @@
-FROM patrickvanamstel/ubuntu-wily-java-8:v1rc1
+FROM patrickvanamstel/ubuntu-wily-java-8
 MAINTAINER Patrick van Amstel <patrickvanamstel@gmail.com>
 
 RUN apt-get update && apt-get upgrade
