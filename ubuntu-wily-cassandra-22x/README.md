@@ -188,14 +188,19 @@ see
 
 # Cheatsheet
 ```
-sudo docker run  -it patrickvanamstel/ubuntu-wily-cassandra-22x:v1rc1 /bin/bash
+sudo docker run  -it patrickvanamstel/ubuntu-wily-cassandra-22x /bin/bash
 ```
 
 ```
-sudo docker run  -p 22:22 -it patrickvanamstel/ubuntu-wily-cassandra-22x:v1rc1 /bin/bash
+sudo docker run  -p 22:22 -it patrickvanamstel/ubuntu-wily-cassandra-22x /bin/bash
 ```
 
+```
 sudo docker inspect 325e08664b31
+```
+```
+sudo docker run  -v /data/docker/cassandra/cluster2xx/cass1:/data -e "DATA=/data" -it patrickvanamstel/ubuntu-wily-cassandra-22x /bin/bash
+```
 
 Deleting old containers
 ```
