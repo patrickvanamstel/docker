@@ -137,6 +137,41 @@ id | test_value
 
 # Cassandra Cluster
 
+## Commandline
+Creating 3 nodes by hand.
+
+```
+sudo docker run --detach --name cass1  patrickvanamstel/ubuntu-wily-cassandra-22x
+sudo docker run --detach --name cass2 --link cass1:seed  patrickvanamstel/ubuntu-wily-cassandra-22x start seed
+sudo docker run --detach --name cass3 --link cass1:seed  patrickvanamstel/ubuntu-wily-cassandra-22x start seed
+```
+
+Lets get the status of the cluster via the nodetool.
+```
+sudo docker run -it --net container:cass1 patrickvanamstel/ubuntu-wily-cassandra-22x nodetool status
+```
+
+If that worked, you should see:
+
+```
+Datacenter: datacenter1
+=======================
+Status=Up/Down
+|/ State=Normal/Leaving/Joining/Moving
+--  Address        Load       Tokens       Owns    Host ID                               Rack
+UN  192.168.109.2  67.67 KB   256          ?       614b7a46-141d-429d-aefb-9b5a5ad3530b  rack1
+UN  192.168.109.3  110.05 KB  256          ?       0187c502-8c1f-4294-8893-dcd08cdad5f4  rack1
+UN  192.168.109.4  84.56 KB   256          ?       c9821231-1a84-45bc-97b6-dd4475915957  rack1
+
+Note: Non-system keyspaces don't have the same replication settings, effective ownership information is meaningless
+```
+
+see
+[http://tonylixu.blogspot.nl/2015/04/cassandra-non-system-keyspaces-dont.html] for an explanation of the Non-system keyspaces
+
+## Scripted
+
+
 
 # Cassandra OpsCenter
 
@@ -161,3 +196,8 @@ sudo docker run  -p 22:22 -it patrickvanamstel/ubuntu-wily-cassandra-22x:v1rc1 /
 ```
 
 sudo docker inspect 325e08664b31
+
+Deleting old containers
+```
+sudo docker ps -a | grep 'hours ago' | awk '{print $1}' | xargs --no-run-if-empty sudo docker rm
+```
