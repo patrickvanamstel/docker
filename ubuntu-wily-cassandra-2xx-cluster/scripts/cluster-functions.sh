@@ -36,7 +36,6 @@ function dockerCanBeStarted {
 		fi
 		
 	}
-	
 }
 
 function stopContainer {
@@ -52,7 +51,6 @@ function stopContainer {
 			docker stop $dockerName
 		fi
 	}
-
 }
 
 function startContainer {
@@ -68,7 +66,6 @@ function startContainer {
 			docker start $dockerName
 		fi
 	}
-
 }
 
 

@@ -46,6 +46,9 @@ if [ $DATA_FOLDER != 'default' ] ; then
 		exit
 	fi
 	
+	# This could be better with acl's
+	chmod 777 $DATA_FOLDER
+	
 	DATA_FOLDER_DATADIR=$(echo $DATA_FOLDER_DATADIR | sed 's/\//\\\//g')
 	DATA_FOLDER_COMMITLOGDIR=$(echo $DATA_FOLDER_COMMITLOGDIR | sed 's/\//\\\//g')
 	DATA_FOLDER_SAVEDCASHESDIR=$(echo $DATA_FOLDER_SAVEDCASHESDIR | sed 's/\//\\\//g')
@@ -63,8 +66,6 @@ if [[ $DC && $RACK ]]; then
   echo "dc=$DC" > $CONFIG/cassandra-rackdc.properties
   echo "rack=$RACK" >> $CONFIG/cassandra-rackdc.properties
 fi
-
-#sudo docker run  -v /data/docker/cassandra/cluster2xx/cass1:/data -e "DATA=/data" -it patrickvanamstel/ubuntu-wily-cassandra-22x /bin/bash
 
 # Start process
 echo Starting Cassandra on $IP...

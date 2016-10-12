@@ -1,4 +1,4 @@
-#Ubuntu 15.10 (Wily) with Cassandra 22x
+# Ubuntu 15.10 (Wily) with Cassandra 22x
 
 Ubuntu 15.10 with Cassandra 22x installed.
 
@@ -135,7 +135,21 @@ id | test_value
 (3 rows)
 ```
 
+## Cassandra with external mount point
+
+Containers are not meant to store data inside the container.
+In the start up script there is an option to alter the cassandra yml
+with the DATA environment variable. The variable is in the example
+below /data.
+
+````
+ sudo docker run  -v /data/docker/cassandra/cluster2xx/cass1:/data -e "DATA=/data" -it patrickvanamstel/ubuntu-wily-cassandra-22x
+```
+
 # Cassandra Cluster
+
+See the scripts
+[https://github.com/patrickvanamstel/docker/tree/master/ubuntu-wily-cassandra-2xx-cluster]
 
 ## Commandline
 Creating 3 nodes by hand.
@@ -185,6 +199,7 @@ see
 
 [https://github.com/pokle/cassandra]
 
+[https://github.com/tobert/cassandra-docker/]
 
 # Cheatsheet
 ```
