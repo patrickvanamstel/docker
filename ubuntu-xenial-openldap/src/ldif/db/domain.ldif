@@ -1,0 +1,5 @@
+dn: dc=example,dc=com
+objectclass: top
+objectclass: domain
+dc: example
+description: Fictional example company

@@ -1,0 +1,17 @@
+dn: olcDatabase={1}mdb,cn=config
+replace: olcDbDirectory
+olcDbDirectory: /data/db
+
+# ldapsearch -Y EXTERNAL -H ldapi:///  -b cn=config -LLL "(olcDatabase={1}mdb)" > /tmp/db.ldif
+# ldapsearch -Y EXTERNAL -H ldapi:///  -b cn=config -LLL "(olcDatabase={1}mdb)" > /tmp/3.ldif
+
+# Rechten folder zijn chmod 755
+# Owner folder is openldap:openldap
+
+# vi /etc/apparmor.d/usr.sbin.slapd 
+# /etc/init.d/apparmor restart
+# Toevoegen van folder aan apparmore file
+
+# Configuratie naar andere folder kopieren
+#http://www.zytrax.com/books/ldap/ch6/slapd-config.html
+#https://ubuntuforums.org/showthread.php?t=1492043

@@ -1,0 +1,5 @@
+dn: cn=mailservice-docker-admin,ou=group,dc=example,dc=com
+objectClass: groupOfNames
+objectClass: top
+cn: mailservice-docker-admin
+member: uid=patrick,ou=people,dc=example,dc=com

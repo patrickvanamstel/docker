@@ -1,0 +1,13 @@
+dn: uid=patrick,ou=people,dc=example,dc=com
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Patrick van Amstel
+sn: Patrick
+givenname: van Amstel
+uid: patrick
+ou: people
+description: Architect
+telephonenumber: 0621178970
+userpassword: {SSHA}dkfljlk34r2kljdsfk9
