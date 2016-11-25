@@ -1,9 +1,0 @@
-#!RESULT OK
-#!CONNECTION ldap://203.0.113.14:636
-#!DATE 2016-11-11T08:22:19.429
-dn: cn=mailservice-admin,ou=group,dc=example,dc=com
-objectClass: posixGroup
-objectClass: top
-cn: mailservice-admin
-gidNumber: 100
-memberUid: patrick
