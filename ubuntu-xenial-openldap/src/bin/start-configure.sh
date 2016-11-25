@@ -17,6 +17,7 @@ set -eu
 # Not the initial run
 if [ -f /data/conf/ldap.conf ]
 then
+	echo Starting ldap
 	/usr/sbin/slapd -h "ldap:/// ldapi:/// ldaps:///" -u openldap -g openldap -d 0 -F /data/conf/slapd.d
 	exit 1 # Only a safe guard. The above command will run in the foreground
 fi
@@ -34,9 +35,16 @@ chmod g+r /etc/ssl/private/ldap01_slapd_key.pem
 chmod o-r /etc/ssl/private/ldap01_slapd_key.pem
 
 # Move outside the container with the correct owner and rights
-mkdir /data/certificates/cert
+mkdir -p /data/db
+chown -R openldap:openldap /data/db
+chmod 775 /data/db
+
+mkdir -p /data/conf
+chmod 775 /data/conf
+
+mkdir -p /data/certificates/cert
 cp /etc/ssl/certs/cacert.pem /data/certificates/cert
-mkdir /data/certificates/private
+mkdir -p /data/certificates/private
 cp /etc/ssl/certs/ldap01_slapd_cert.pem /data/certificates/private
 cp /etc/ssl/private/ldap01_slapd_key.pem /data/certificates/private
 
@@ -50,8 +58,6 @@ set -x
 LDAP_ROOTPASS=${LDAP_ROOTPASS}
 LDAP_DOMAIN=${LDAP_DOMAIN}
 LDAP_ORGANISATION=${LDAP_ORGANISATION}
-
-status "configuring slapd for first run"
 
   cat <<EOF | debconf-set-selections
 slapd slapd/internal/generated_adminpw password ${LDAP_ROOTPASS}
