@@ -14,6 +14,8 @@ Used resources:
 Great gui can be found 
 [http://directory.apache.org/studio/]
 
+Do not hesitate to ask any questions. It has been a trip in memory lane.
+
 
 ##Build
 
@@ -34,61 +36,39 @@ time in 10 years that i am working with a ldap database.
 
 Installing openldap in a docker container gives some chalanges. The container itself must
 be able to be discarded and restarted at will. This means the container cannot have any
-configuration inside the container.
+configuration or state inside the container.
 
 Openldap when installed has its own folders for the installation. Rights permissions and
 owners of the folders matter. If you start slapd as root it will not work. You have
-to get the permissions right. Otherwise you get strange exceptions that do not say a thing.
+to get the permissions right, otherwise you get strange exceptions that do not say a thing.
 
-Configuring ldap is done at startup in the startup script. I have not figured out yet
-how to do this in the Docker command structure.
+Configuring ldap is done at startup in the startup script. 
 
-
-The -F flag tells openldap where to find's it configuration database. This database is 
-a ldap database as well.
-
-Magic commands are 
-slapcat -n 0
-
-
-Change the default directory location is done by an ldiff file 
-
-```
-dn: olcDatabase={1}mdb,cn=config
-replace: olcDbDirectory
-olcDbDirectory: /data/ldap/db
+``` 
+./src/bin/start-configure.sh 
 ```
 
-Note the dn should match the dn of the database you want to change. slapcat -n 0 (0 .. xxx)
-gives you information about the installed ldap
+This script is heavaly annotated with comments. I am a user and not a sysadmin. So the obvious 
+might not be that obvious to me.
 
-The 
+The script has 2 modes:
+- The initial run
+- The operational run
 
-```
-ldapsearch -Y EXTERNAL -H ldapi:///  -b cn=config -LLL "(olcDatabase={1}mdb)" > /tmp/db.ldif
-```
+The initial run creates the database / certs/ configuration location
 
-Exports the configuration of my default database.
+The operational run takes a configured database and starts it.
 
-Execute the update on the databse
-```
-ldapmodify  -Y EXTERNAL -H ldapi:///   -f /tmp/1.ldif
-```
+( A Magic command is slapcat -n 0 )
 
 
-Finally the rights on the certificates and the certificates folders.
-The rights and owner must be very strict. See the startup script for the
-correct right and owner to be used. In a container i cannot see why this is.
+## Configure the LDIF database
 
-But hey it works, so i do not complain. Needles to say that this is a selfsigned
-cert and will not be recognized by any client without some manual approving this cert.
-
-#Ldif database
 
 [https://www.centos.org/docs/5/html/CDS/ag/8.0/LDAP_Data_Interchange_Format-Specifying_Directory_Entries_Using_LDIF.html]
 
 *Domain object*
-First entry ub the database
+First entry in the database
 ```
 dn: dc=example,dc=com
 objectclass: top
@@ -124,24 +104,25 @@ telephonenumber: 0621178970
 userpassword: {SSHA}dkfljlk34r2kljdsfk9
 ```
 
+*Add a group of mailservice-docker-admin*
 
-[http://serverfault.com/questions/275813/ldap-how-to-add-a-person-to-an-existing-group]
-*Add a person to a group*
--- TODO
-dn: ou=groups,dc=example,dc=com
-changetype: modify
-add: memberUid
-memberUid: fred
+```
+dn: cn=mailservice-docker-admin,ou=group,dc=example,dc=com
+objectClass: groupOfNames
+objectClass: top
+cn: mailservice-docker-admin
+member: uid=patrick,ou=people,dc=example,dc=com
+```
 
 
-
+## Java
+If there is a need for some java code just ask.
+I have to format and add it here.
 
 
 
 ## Cheatsheet
-sudo docker run  --net iptastic --ip 203.0.113.14 -v /data2/docker/containers/ubuntu-xenial-openldap/data:/data -it patrickvanamstel/ubuntu-xenial-openldap  /bin/bash
-sudo docker run -v /data/ldap:/var/lib/ldap --name openldap --net iptastic --ip 203.0.113.13 -e LDAP_DOMAIN=anachron.com -e LDAP_ORGANISATION="Anachron" -e LDAP_ROOTPASS=1234Abcd!    -it nickstenning/slapd /bin/bash
-
-docker run  --net iptastic --ip 203.0.113.14 -v /data2/docker/containers/ubuntu-xenial-openldap/data:/data -it patrickvanamstel/ubuntu-xenial-openldap  /bin/bash
-
 docker run --net iptastic --ip 203.0.113.14 -v /data2/docker/containers/ubuntu-xenial-openldap/data:/data -it patrickvanamstel/ubuntu-xenial-openldap  /bin/bash
+
+
+

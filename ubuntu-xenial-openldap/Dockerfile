@@ -9,7 +9,6 @@ RUN apt-get install ssl-cert
 RUN apt-get install vim -y
 RUN apt-get install gnutls-bin -y
 
-
 # Default configuration: can be overridden at the docker command line
 ENV LDAP_ROOTPASS changeit
 ENV LDAP_ORGANISATION Example.com
@@ -24,7 +23,6 @@ ADD src/templates/ldap01.info /etc/ssl/ldap01.info
 
 ADD src/ldif/certinfo.ldif /etc/ssl/certinfo.ldif
 ADD src/ldif/modify-database-folder.ldif /etc/ssl/modify-database-folder.ldif
-
 
 # Define working directory.
 WORKDIR /data

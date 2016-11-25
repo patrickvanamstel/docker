@@ -14,7 +14,7 @@
 
 set -eu
 
-# Not the initial run
+# Operational run
 if [ -f /data/conf/ldap.conf ]
 then
 	echo Starting ldap
@@ -24,6 +24,7 @@ fi
 
 # Initial run
 
+# Generate the certificates
 sh -c "certtool --generate-privkey > /etc/ssl/private/cakey.pem"
 certtool --generate-self-signed --load-privkey /etc/ssl/private/cakey.pem --template /etc/ssl/ca.info --outfile /etc/ssl/certs/cacert.pem
 certtool --generate-privkey --bits 1024 --outfile /etc/ssl/private/ldap01_slapd_key.pem
