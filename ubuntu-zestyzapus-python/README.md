@@ -1,16 +1,16 @@
-#Ubuntu 17.04 (Zesty Zapus) with pyhton
+# Ubuntu 17.04 (Zesty Zapus) with pyhton
 
 Ubuntu 17.04 with pyhton scripts installed.
 
 Base for easy installing extra packages in derived images.
 
-##Build
+## Build
 
 ```
 sudo docker build -t patrickvanamstel/ubuntu-zestyzapus-python .
 ```
 
-##Publish
+## Publish
 
 ```
 sudo docker push patrickvanamstel/ubuntu-zestyzapus-python
