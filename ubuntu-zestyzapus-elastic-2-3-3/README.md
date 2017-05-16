@@ -1,14 +1,14 @@
-#Ubuntu 17.04 (Zesty Zapus) with Elasticsearch 2.3.3
+# Ubuntu 17.04 (Zesty Zapus) with Elasticsearch 2.3.3
 
 Running a single node elasticsearch
 
-##Build
+## Build
 
 ```
 sudo docker build -t patrickvanamstel/ubuntu-zestyzapus-elastic-2-3-3 .
 ```
 
-##Publish
+## Publish
 
 Do publish this in the docker repo. This is not opensource software
 
@@ -16,7 +16,7 @@ Do publish this in the docker repo. This is not opensource software
 sudo docker push patrickvanamstel/ubuntu-xenial-elastic-2-3-3 .
 ```
 
-##Challenge
+## Challenge
 Docker has it's own network stack.
 
 If you run in a network with ip address 192.168.x.x it cannot reach the default
@@ -25,7 +25,7 @@ docker address range of 172.17.0.x. This is normally blocked by the gateway.
 From Docker version 1.10 there is a new possibility. It is called iptastic.
 
 
-##Sample
+## Sample
 Create the bridge
 ```
 sudo docker network create --subnet 203.0.113.0/24 --gateway 203.0.113.254 iptastic
@@ -50,6 +50,6 @@ http://203.0.113.31:9200/
 ```
 
 
-##Commands
+## Commands
 
-Cheatsheet
+## Cheatsheet
